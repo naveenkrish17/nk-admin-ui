@@ -16,17 +16,18 @@ const Pagination = (props) => {
           </Chip>
         </div>
         <div>
+          <button onClick={handlePageClick}>&lt;&lt;</button>
           <button onClick={handlePageClick}>Previous</button>
           {pageBtns.map((elem) => {
             return <button onClick={handlePageClick}>{elem}</button>;
           })}
           <button onClick={handlePageClick}>Next</button>
+          <button onClick={handlePageClick}>&gt;&gt;</button>
         </div>
       </div>
       ;
     </>
   );
 };
-
 
 export default Pagination;

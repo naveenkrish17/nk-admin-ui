@@ -3,6 +3,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import Row from "./Row";
 import Pagination from "./Pagination";
+import Heading from "./TableHeading";
 
 const Dashboard = () => {
   const [currentItems, setCurrentItems] = useState([]);
@@ -94,7 +95,9 @@ const Dashboard = () => {
   const handlePageClick = (event) => {
     if (
       event.target.textContent == "Previous" ||
-      event.target.textContent == "Next"
+      event.target.textContent == "Next" ||
+      event.target.textContent == "<<" ||
+      event.target.textContent == ">>"
     ) {
       if (event.target.textContent == "Previous" && itemOffset > 1) {
         setItemOffset(itemOffset == 11 ? itemOffset - 11 : itemOffset - 10);
@@ -103,6 +106,8 @@ const Dashboard = () => {
         itemOffset < pageCount * 10 - 10
       ) {
         setItemOffset(itemOffset + 10);
+      } else if (event.target.textContent == "<<") {
+        setItemOffset(0);
       }
     } else {
       let pageNum = Number(event.target.textContent);
@@ -131,13 +136,7 @@ const Dashboard = () => {
         onChange={handleSearch}
       ></input>
       <table>
-        <tr align="left">
-          <input onClick={handleSelectAll} type="checkbox"></input>
-          <th>Name</th>
-          <th>Email</th>
-          <th>Role</th>
-          <th align="center">Actions</th>
-        </tr>
+        <Heading handleSelectAll={handleSelectAll} />
         {currentItems ? (
           currentItems.map((elem) => {
             return (
