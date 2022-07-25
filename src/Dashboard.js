@@ -1,16 +1,12 @@
 import "./Dashboard.css";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { RiEditBoxFill, RiDeleteBin7Line } from "react-icons/ri";
-// import ReactPaginate from "react-paginate";
-import Chip from "@mui/joy/Chip";
-import ChipDelete from "@mui/joy/ChipDelete";
+import Row from "./Row";
+import Pagination from "./Pagination";
 
 const Dashboard = () => {
   const [currentItems, setCurrentItems] = useState([]);
   const [pageCount, setPageCount] = useState(0);
-  // Here we use item offsets; we could also use page offsets
-  // following the API or data you're working with.
   const [itemOffset, setItemOffset] = useState(0);
   const [data, setData] = useState([]);
   const [tempData, setTempData] = useState([]);
@@ -46,11 +42,12 @@ const Dashboard = () => {
   };
   const handleSearch = (e) => {
     if (e.target.value != "") {
+      const tempSearchValue = e.target.value.toLowerCase();
       const temp = data.filter(
         (elem) =>
-          elem.name.includes(e.target.value) ||
-          elem.email.includes(e.target.value) ||
-          elem.role.includes(e.target.value)
+          elem.name.includes(tempSearchValue) ||
+          elem.email.includes(tempSearchValue) ||
+          elem.role.includes(tempSearchValue)
       );
       setTempData(temp);
     } else {
@@ -145,23 +142,11 @@ const Dashboard = () => {
           currentItems.map((elem) => {
             return (
               <>
-                <tr id={elem.id} align="left">
-                  <td>
-                    <input
-                      onClick={handleSelect}
-                      id={elem.id}
-                      type="checkbox"
-                      checked={elem.checked}
-                    ></input>
-                  </td>
-                  <td>{elem.name}</td>
-                  <td>{elem.email}</td>
-                  <td>{elem.role}</td>
-                  <td align="center">
-                    <RiEditBoxFill />
-                    <RiDeleteBin7Line id={elem.id} onClick={handleDelete} />
-                  </td>
-                </tr>
+                <Row
+                  elem={elem}
+                  handleSelect={handleSelect}
+                  handleDelete={handleDelete}
+                />
               </>
             );
           })
@@ -169,25 +154,11 @@ const Dashboard = () => {
           <></>
         )}
       </table>
-      <div class="pagination" style={{ display: "flex", direction: "row" }}>
-        <div>
-          <Chip
-            variant="outlined"
-            color="warning"
-            endDecorator={<ChipDelete variant="plain" />}
-            onClick={handleDeleteAll}
-          >
-            Delete Selected
-          </Chip>
-        </div>
-        <div>
-          <button onClick={handlePageClick}>Previous</button>
-          {pageBtns.map((elem) => {
-            return <button onClick={handlePageClick}>{elem}</button>;
-          })}
-          <button onClick={handlePageClick}>Next</button>
-        </div>
-      </div>
+      <Pagination
+        pageBtns={pageBtns}
+        handleDeleteAll={handleDeleteAll}
+        handlePageClick={handlePageClick}
+      />
     </>
   );
 };

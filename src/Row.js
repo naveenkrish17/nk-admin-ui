@@ -1,25 +1,26 @@
 import { RiEditBoxFill, RiDeleteBin7Line } from "react-icons/ri";
 
 const Row = (props) => {
+  const { elem, handleSelect, handleDelete } = props;
 
-
-
-  
   return (
-    <>
-      <tr align="left">
-        <td>
-          <input type="checkbox" checked={props.checked}></input>
-        </td>
-        <td>{props.name}</td>
-        <td>{props.email}</td>
-        <td>{props.role}</td>
-        <td align="center">
-          <RiEditBoxFill />
-          <RiDeleteBin7Line />
-        </td>
-      </tr>
-    </>
+    <tr id={elem.id} align="left">
+      <td>
+        <input
+          onClick={handleSelect}
+          id={elem.id}
+          type="checkbox"
+          checked={elem.checked}
+        ></input>
+      </td>
+      <td>{elem.name}</td>
+      <td>{elem.email}</td>
+      <td>{elem.role}</td>
+      <td align="center">
+        <RiEditBoxFill />
+        <RiDeleteBin7Line id={elem.id} onClick={handleDelete} />
+      </td>
+    </tr>
   );
 };
 export default Row;
