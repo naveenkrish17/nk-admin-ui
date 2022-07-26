@@ -18,7 +18,7 @@ tr {
 }
 
 tr:not(:first-child):hover {
-  background-color: rgb(231, 231, 231);
+  background-color: #e7e7e7;
 }
 td:nth-child(4) {
   text-transform: capitalize;

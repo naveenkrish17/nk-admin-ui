@@ -4,7 +4,11 @@ const Row = (props) => {
   const { elem, handleSelect, handleDelete } = props;
 
   return (
-    <tr id={elem.id} align="left">
+    <tr
+      id={elem.id}
+      align="left"
+      style={elem.checked ? { backgroundColor: "#e7e7e7" } : {}}
+    >
       <td>
         <input
           onClick={handleSelect}
