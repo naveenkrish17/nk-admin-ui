@@ -108,7 +108,7 @@ const Dashboard = () => {
         setItemOffset(itemOffset + 10);
       } else if (event.target.textContent == "<<") {
         setItemOffset(0);
-      } else {
+      } else if (event.target.textContent == ">>") {
         setItemOffset(Math.floor(tempData.length / 10) * 10);
       }
     } else {
