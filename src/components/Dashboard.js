@@ -1,4 +1,4 @@
-import "./Dashboard.css";
+import "../css/Dashboard.css";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import Row from "./Row";
@@ -20,7 +20,7 @@ const Dashboard = () => {
   useEffect(() => {
     // Fetch items from another resources.
     const endOffset = itemOffset + 10;
-    console.log(`Loading items from ${itemOffset} to ${endOffset}`);
+    // console.log(`Loading items from ${itemOffset} to ${endOffset}`);
     setCurrentItems(tempData.slice(itemOffset, endOffset));
     setPageCount(Math.ceil(tempData.length / 10));
   }, [itemOffset, tempData]);
@@ -108,6 +108,8 @@ const Dashboard = () => {
         setItemOffset(itemOffset + 10);
       } else if (event.target.textContent == "<<") {
         setItemOffset(0);
+      } else {
+        setItemOffset(Math.floor(tempData.length / 10) * 10);
       }
     } else {
       let pageNum = Number(event.target.textContent);
